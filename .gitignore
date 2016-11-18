@@ -30,9 +30,8 @@
 
 DooR-API-Client
 
-
 # igonore for cmake
 CMakeCache.txt
-MakeFile
+Makefile
 cmake_install.cmake
 CMakeFiles/
