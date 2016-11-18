@@ -27,3 +27,12 @@
 *.exe
 *.out
 *.app
+
+DooR-API-Client
+
+
+# igonore for cmake
+CMakeCache.txt
+MakeFile
+cmake_install.cmake
+CMakeFiles/
