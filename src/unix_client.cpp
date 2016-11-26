@@ -15,6 +15,7 @@ int
 UnixClient::run() {
     create();
     handle();
+    close_socket();
     return mem_key_;
 }
 

@@ -21,3 +21,17 @@ SharedMemory::init() {
     return true;
 }
 
+bool
+SharedMemory::setStruct() {
+    if ( m_shm_ == NULL )
+        return false;
+    interprocess_mutex* mx = m_shm_->find_or_construct<interprocess_mutex>("TheMutext")();
+    SharedSt* SharedMemoryPointer = m_shm_->find_or_construct<SharedSt>("SharedSt")();
+
+    scoped_lock<interprocess_mutex> *lock = new scoped_lock<interprocess_mutex>(*mx);
+    memcpy(SharedMemoryPointer, &m_sharedSt_, sizeof(SharedSt));
+
+    delete lock;
+    return true;
+}
+
