@@ -19,5 +19,5 @@ add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 # select executable file
 # add_executable(<exe-file>, files)
-add_executable(DooR-API-Server ${APISrcs})
+add_executable(DooR-API-Client ${APISrcs})
 

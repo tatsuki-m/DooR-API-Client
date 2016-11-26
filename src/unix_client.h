@@ -22,7 +22,8 @@ public:
     UnixClient();
     ~UnixClient();
 
-    void run();
+    int run();
+    int mem_key_;
 
 private:
     void create();
@@ -33,7 +34,6 @@ private:
 
     int server_;
     int ack_;
-    int mem_key_;
     static const char* socket_name_;
 };
 

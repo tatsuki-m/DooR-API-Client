@@ -1,14 +1,14 @@
+#include <iostream>
 #include "unix_client.h"
 
 int
 main() {
-    //  include configure valiable
-    auto config = cpptoml::parse_file("config.toml");
+    int shm_key;
 
-
+    // run socket communication
     UnixClient client = UnixClient();
-    client.run();
+    shm_key = client.run();
 
-
+    std::cout << shm_key << std::endl;
     return 0;
 }
