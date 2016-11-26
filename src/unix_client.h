@@ -1,3 +1,6 @@
+#ifndef UNIX_CLIENT_H_
+#define UNIX_CLIENT_H_
+
 #pragma once
 
 #include <errno.h>
@@ -36,4 +39,6 @@ private:
     int ack_;
     static const char* socket_name_;
 };
+
+#endif
 
