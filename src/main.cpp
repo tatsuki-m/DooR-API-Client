@@ -1,5 +1,8 @@
 #include <iostream>
+#include <string>
+
 #include "unix_client.h"
+#include "shared_memory.h"
 
 int
 main() {
