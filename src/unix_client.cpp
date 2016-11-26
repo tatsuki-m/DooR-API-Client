@@ -11,11 +11,11 @@ UnixClient::~UnixClient() {
 }
 
 
-void
+int
 UnixClient::run() {
     create();
     handle();
-    close_socket();
+    return mem_key_;
 }
 
 void
@@ -55,7 +55,7 @@ UnixClient::handle() {
     success = get_response();
     if (not success)
         exit(-1);
-    printf("return value =%d", mem_key_);
+    printf("return value = %d\n", mem_key_);
 }
 
 
