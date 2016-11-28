@@ -14,6 +14,7 @@ using namespace boost::interprocess;
 
 class SharedMemory
 {
+
 struct SharedSt {
     int value;
     double valueFloat;

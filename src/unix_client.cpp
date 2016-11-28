@@ -4,19 +4,17 @@ const char* UnixClient::socket_name_ = "/tmp/unix-socket";
 
 UnixClient::UnixClient() {
     ack_ = 1;
-    mem_key_ = 0;
 }
 
 UnixClient::~UnixClient() {
 }
 
 
-int
+void
 UnixClient::run() {
     create();
     handle();
     close_socket();
-    return mem_key_;
 }
 
 void
@@ -56,7 +54,6 @@ UnixClient::handle() {
     success = get_response();
     if (not success)
         exit(-1);
-    printf("return value = %d\n", mem_key_);
 }
 
 
@@ -76,11 +73,17 @@ bool
 UnixClient::get_response() {
     int gs;
 
-    if ((gs = recv(server_, &mem_key_, sizeof(int), 0)) < 0 ) {
+    if ((gs = recv(server_, shmKey_, sizeof(shmKey_), 0)) < 0 ) {
         perror("read");
         return false;
     } else {
         return true;
     }
+}
+
+std::string
+UnixClient::getRecievedKey() {
+    std::string shmKey = shmKey_;
+    return shmKey;
 }
 
