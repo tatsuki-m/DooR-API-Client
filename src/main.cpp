@@ -14,12 +14,10 @@ main() {
 
     // run socket communication
     UnixClient client = UnixClient();
-    i_shmKey = client.run();
+    client.run();
+    std::string shmKey = client.getRecievedKey();
 
     // shared memory
-    std::string shmKey = getShmKey(i_shmKey);
-    std::cout << "shmKey" << std::endl;
-
     SharedMemory *shm;
     shm = new SharedMemory(shmKey);
     shm->init();

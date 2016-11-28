@@ -25,8 +25,8 @@ public:
     UnixClient();
     ~UnixClient();
 
-    int run();
-    int mem_key_;
+    void run();
+    std::string getRecievedKey();
 
 private:
     void create();
@@ -36,6 +36,7 @@ private:
     void close_socket();
 
     int server_;
+    char shmKey_[256];
     int ack_;
     static const char* socket_name_;
 };
