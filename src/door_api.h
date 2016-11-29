@@ -3,20 +3,18 @@
 
 #include <iostream>
 
+#include "shared_memory.h"
+
 class DoorApi
 {
+
 public:
     DoorApi();
     ~DoorApi();
-    getShemKey ()
-    {
-      return shmkey;
-    }
+    static std::string shmKey:
 private:
-    shm 
-    shmkey
-
-
+    SharedMemory *shm_;
 };
 
 #endif
+

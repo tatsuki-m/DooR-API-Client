@@ -15,6 +15,9 @@ main() {
     // run socket communication
     UnixClient client = UnixClient();
     client.run();
+    DoorApi::shmKey = client.getRecievedKey();
+
+    /*
     std::string shmKey = client.getRecievedKey();
 
     // shared memory
@@ -34,12 +37,9 @@ main() {
         f += 1.1111111;
         sleep(1);
     }
-    delete shm;
-    return 0;
-};
 
-std::string getShmKey(int key) {
-    std::string shmKey = "shm_key" + std::to_string(key);
-    return shmKey;
+    delete shm;
+    */
+    return 0;
 };
 
