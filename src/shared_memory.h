@@ -14,24 +14,17 @@ using namespace boost::interprocess;
 
 class SharedMemory
 {
-
-struct SharedSt {
-    int value;
-    double valueFloat;
-};
-
 public:
     SharedMemory(std::string);
     ~SharedMemory();
     bool init();
-    bool setStruct();
+    bool getStruct();
 
-    SharedSt m_sharedSt_;
+    unsigned int shmKey_;
 
 private:
     char m_sharedMemoryName_[32];
     managed_shared_memory *m_shm_;
-
 };
 
 #endif

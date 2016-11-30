@@ -8,9 +8,7 @@ std::string getShmKey(int);
 
 int
 main() {
-    int i_shmKey;
-    int i = 0;
-    float f = 0.0;
+    unsigned int i = 0;
 
     // run socket communication
     UnixClient client = UnixClient();
@@ -23,15 +21,12 @@ main() {
     shm->init();
 
     while (true) {
-        shm->m_sharedSt_.valueFloat = f;
-        shm->m_sharedSt_.value = i;
+        shm->shmKey_= i;
 
-        if (!shm->setStruct())
+        if (!shm->getStruct())
             std::cout << "upload failed" << std::endl;
 
-        cout << shm->m_sharedSt_.value << "  " << shm->m_sharedSt_.valueFloat << endl;
-        i += 1;
-        f += 1.1111111;
+        cout << shm->shmKey_ << "  " << endl;
         sleep(1);
     }
     delete shm;

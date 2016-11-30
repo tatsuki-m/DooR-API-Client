@@ -11,8 +11,8 @@ SharedMemory::~SharedMemory() {
 
 bool
 SharedMemory::init() {
-    int m_size;
-    m_size = sizeof(SharedSt) + 1024 * 10;
+    unsigned int m_size;
+    m_size = sizeof(unsigned int);
     std::cout << m_size << "byte" << std::endl;
 
     m_shm_ = new managed_shared_memory(open_or_create, m_sharedMemoryName_, m_size);
@@ -22,14 +22,14 @@ SharedMemory::init() {
 }
 
 bool
-SharedMemory::setStruct() {
+SharedMemory::getStruct() {
     if ( m_shm_ == NULL )
         return false;
     interprocess_mutex* mx = m_shm_->find_or_construct<interprocess_mutex>("TheMutext")();
-    SharedSt* SharedMemoryPointer = m_shm_->find_or_construct<SharedSt>("SharedSt")();
+    unsigned int* SharedMemoryPointer = m_shm_->find_or_construct<unsigned int>("Integer")();
 
     scoped_lock<interprocess_mutex> *lock = new scoped_lock<interprocess_mutex>(*mx);
-    memcpy(SharedMemoryPointer, &m_sharedSt_, sizeof(SharedSt));
+    memcpy(SharedMemoryPointer, shmKey_, sizeof(unsigned int));
 
     delete lock;
     return true;
