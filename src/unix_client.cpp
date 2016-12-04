@@ -3,7 +3,7 @@
 const char* UnixClient::socket_name_ = "/tmp/unix-socket";
 
 UnixClient::UnixClient() {
-    ack_ = 1;
+    ack_ = 0;
 }
 
 UnixClient::~UnixClient() {

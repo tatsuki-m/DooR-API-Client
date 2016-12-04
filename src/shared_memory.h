@@ -4,34 +4,28 @@
 #include <iostream>
 #include <string>
 
-#include <boost/interprocess/managed_shared_memory.hpp>
-#include <boost/interprocess/containers/vector.hpp>
-#include <boost/interprocess/allocators/allocator.hpp>
-#include <boost/interprocess/sync/interprocess_mutex.hpp>
-#include <boost/interprocess/sync/scoped_lock.hpp>
+#include <boost/interprocess/shared_memory_object.hpp>
+#include <boost/interprocess/mapped_region.hpp>
+#include <boost/interprocess/sync/interprocess_semaphore.hpp>
 
 using namespace boost::interprocess;
 
 class SharedMemory
 {
-
-    struct SharedSt {
-        int value;
-        double valueFloat;
-};
+    struct SharedMemoryBuffer {
+        SharedMemoryBuffer(): writer(1), reader(0) {}
+        interprocess_semaphore writer, reader;
+        char appShmKey[16];
+    };
 
 public:
     SharedMemory(std::string);
     ~SharedMemory();
-    bool init();
-    bool setStruct();
-
-    SharedSt m_sharedSt_;
+    std::string init();
 
 private:
-    char m_sharedMemoryName_[32];
-    managed_shared_memory *m_shm_;
-
+    SharedMemoryBuffer *m_sharedMemoryBuffer;
+    const char* m_sharedMemoryName_;
 };
 
 #endif
