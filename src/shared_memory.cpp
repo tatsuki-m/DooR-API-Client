@@ -1,37 +1,36 @@
 #include "shared_memory.h"
 
 SharedMemory::SharedMemory(std::string sharedMemoryName) {
-    strcpy(m_sharedMemoryName_, sharedMemoryName.c_str());
-    m_shm_ = NULL;
+    m_sharedMemoryName_ =  sharedMemoryName.c_str();
 }
 
 SharedMemory::~SharedMemory() {
-    if (m_shm_ != NULL) delete m_shm_;
+    // TODO: check shared memory is alreadly deleted
+    if (m_sharedMemoryBuffer != NULL) {
+        shared_memory_object::remove(m_sharedMemoryName_);
+    }
+
 }
 
-bool
+std::string
 SharedMemory::init() {
-    unsigned int m_size;
-    m_size = sizeof(unsigned int);
-    std::cout << m_size << "byte" << std::endl;
+    std::cout << "init" << std::endl;
+    shared_memory_object shm(open_only, m_sharedMemoryName_, read_write);
+    mapped_region region(shm, read_write);
+    void *addr = region.get_address();
+    m_sharedMemoryBuffer = static_cast<SharedMemoryBuffer*>(addr);
+    std::cout << "ready" << std::endl;
 
-    m_shm_ = new managed_shared_memory(open_or_create, m_sharedMemoryName_, m_size);
-    std::cout << "memory instance create" << std::endl;
-
-    return true;
+    try {
+        m_sharedMemoryBuffer->reader.wait();
+        std::string shmKey = m_sharedMemoryBuffer->appShmKey;
+        std::cout << m_sharedMemoryBuffer->appShmKey << std::endl;
+        m_sharedMemoryBuffer->writer.post();
+        std::cout << "writer post" << std::endl;
+        return shmKey;
+    } catch (interprocess_exception& e) {
+        std::cout << e.what() << std::endl;
+    }
 }
 
-bool
-SharedMemory::getStruct() {
-    if ( m_shm_ == NULL )
-        return false;
-    interprocess_mutex* mx = m_shm_->find_or_construct<interprocess_mutex>("TheMutext")();
-    unsigned int* SharedMemoryPointer = m_shm_->find_or_construct<unsigned int>("Integer")();
-
-    scoped_lock<interprocess_mutex> *lock = new scoped_lock<interprocess_mutex>(*mx);
-    memcpy(SharedMemoryPointer, shmKey_, sizeof(unsigned int));
-
-    delete lock;
-    return true;
-}
 
