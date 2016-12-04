@@ -36,7 +36,7 @@ private:
     void close_socket();
 
     int server_;
-    char shmKey_[256];
+    char shmKey_[16];
     int ack_;
     static const char* socket_name_;
 };

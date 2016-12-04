@@ -7,7 +7,6 @@ SharedMemory::SharedMemory(std::string sharedMemoryName) {
 SharedMemory::~SharedMemory() {
     // TODO: check shared memory is alreadly deleted
     if (m_sharedMemoryBuffer != NULL) {
-        shared_memory_object::remove(m_sharedMemoryName_);
     }
 
 }

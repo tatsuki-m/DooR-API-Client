@@ -13,6 +13,7 @@ UnixClient::~UnixClient() {
 void
 UnixClient::run() {
     create();
+    std::cout << "created" << std::endl;
     handle();
     close_socket();
 }
@@ -39,6 +40,7 @@ UnixClient::create() {
         exit(-1);
     }
 
+    std::cout << "will connect" << std::endl;
     if (connect(server_, (const struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
         perror("connect");
         exit(-1);
@@ -49,6 +51,7 @@ void
 UnixClient::handle() {
     bool sent, success;
     sent = send_ack();
+    std::cout << "send ack" << std::endl;
     if (not sent)
         exit(-1);
     success = get_response();
@@ -72,6 +75,8 @@ UnixClient::send_ack() {
 bool
 UnixClient::get_response() {
     int gs;
+
+    std::cout << "waiting response" << std::endl;
 
     if ((gs = recv(server_, shmKey_, sizeof(shmKey_), 0)) < 0 ) {
         perror("read");

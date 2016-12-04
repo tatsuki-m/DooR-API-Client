@@ -12,6 +12,7 @@ main() {
     UnixClient client = UnixClient();
     client.run();
     std::string shmKey = client.getRecievedKey();
+    std::cout << shmKey << std::endl;
 
     // shared memory
     SharedMemory *shm = new SharedMemory(shmKey);
