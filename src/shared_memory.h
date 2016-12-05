@@ -3,8 +3,6 @@
 
 #include <iostream>
 #include <string>
-#include <stdio.h>
-#include <stdlib.h>
 
 #include <boost/interprocess/shared_memory_object.hpp>
 #include <boost/interprocess/mapped_region.hpp>
@@ -23,7 +21,8 @@ class SharedMemory
 public:
     SharedMemory(std::string);
     ~SharedMemory();
-    std::string init();
+    std::string initRead();
+    bool initWrite();
 
 private:
     SharedMemoryBuffer *m_sharedMemoryBuffer;
