@@ -4,21 +4,21 @@
 #include "unix_client.h"
 #include "shared_memory.h"
 
-std::string getShmKey(int);
-
 int
 main() {
+    // this shmKey for application to know the shared memory name, which connected client and server
+    std::string baseShmKey = "shmKey0000";
+
     // run socket communication
     UnixClient client = UnixClient();
     client.run();
-    std::string shmKey = client.getRecievedKey();
-    std::cout << shmKey << std::endl;
+    std::string clientShmKey = client.getRecievedKey();
+    std::cout << clientShmKey << std::endl;
 
-    // shared memory
-    SharedMemory *shm = new SharedMemory(shmKey);
-    std::string shmAppKey = shm->init();
 
-    delete shm;
+    // create shared memory, which are referd by application to know the clientShmKey
+    SharedMemory *shm = new SharedMemory(baseShmKey);
+    shm->initWrite(clientShmKey);
     return 0;
 };
 
