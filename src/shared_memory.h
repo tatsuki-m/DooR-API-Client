@@ -22,7 +22,7 @@ public:
     SharedMemory(std::string);
     ~SharedMemory();
     std::string initRead();
-    bool initWrite();
+    bool initWrite(std::string);
 
 private:
     SharedMemoryBuffer *m_sharedMemoryBuffer;

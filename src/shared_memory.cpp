@@ -32,7 +32,7 @@ SharedMemory::initRead() {
 }
 
 bool
-SharedMemory::initWrite() {
+SharedMemory::initWrite(std::string shmKeyName) {
     shared_memory_object shm(open_or_create, m_sharedMemoryName_, read_write);
     shm.truncate(sizeof(SharedMemoryBuffer));
     mapped_region region(shm, read_write);
@@ -42,7 +42,7 @@ SharedMemory::initWrite() {
     try {
         while(true) {
             m_sharedMemoryBuffer->writer.wait();
-                strcpy(m_sharedMemoryBuffer->appShmKey, m_sharedMemoryName_);
+                strcpy(m_sharedMemoryBuffer->appShmKey, shmKeyName.c_str());
             m_sharedMemoryBuffer->reader.post();
         };
     } catch (interprocess_exception& e) {
