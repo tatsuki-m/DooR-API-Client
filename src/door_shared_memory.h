@@ -26,7 +26,7 @@ public:
 private:
     SharedMemoryBuffer *m_sharedMemoryBuffer;
     const char* m_sharedMemoryName_;
-}
+};
 
 
 #endif

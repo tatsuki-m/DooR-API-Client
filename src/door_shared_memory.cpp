@@ -17,7 +17,7 @@ DoorSharedMemory::init() {
     try {
         m_sharedMemoryBuffer->reader.wait();
         // Do sth
-        m_sahredMemoryBuffer->writer.post();
+        m_sharedMemoryBuffer->writer.post();
         return "hoge";
     } catch (interprocess_exception& e) {
         std::cout << e.what() << std::endl;
