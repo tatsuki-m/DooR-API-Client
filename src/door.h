@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 
-#include "door_shared_memory.h"
 #include "shared_memory.h"
 
 class Door
@@ -18,7 +17,6 @@ private:
     std::string baseShmKeyName_;
     std::string appShmKeyName_;
 
-    DoorSharedMemory* appShmKey_;
 };
 
 #endif
