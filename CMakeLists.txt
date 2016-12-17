@@ -7,7 +7,7 @@ project(DooR-API-Client)
 include(CheckCXXCompilerFlag)
 check_cxx_compiler_flag("-std=c++11" HAS_CPP11)
 if (HAS_CPP11)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -lrt")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ggdb -std=c++11 -lrt")
 endif()
 
 # search file and insert value to first argument, APISrcs
@@ -20,4 +20,12 @@ add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/src")
 # select executable file
 # add_executable(<exe-file>, files)
 add_executable(DooR-API-Client ${APISrcs})
+# target_link_libraries(DooR-API-Client door_shared_memory)
+find_library(door_shared_memory REQUIRED)
+
+if (DOOR_SHARED_MEMORY_FOUND)
+    include_directories(${DOOR_SHARED_MEMORY_INCLUDE_DIRS})
+    target_link_libraries(DooR-API-Clients ${DOOR_SHARED_MEMORY_LIBRARIES})
+endif (DOOR_SHARED_MEMORY_FOUND)
+
 
