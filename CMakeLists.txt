@@ -17,15 +17,10 @@ file(GLOB APISrcs "./src/*.cpp")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/src")
 
+# install package
+find_package(door_shared_memory REQUIRED)
+
 # select executable file
-# add_executable(<exe-file>, files)
 add_executable(DooR-API-Client ${APISrcs})
-# target_link_libraries(DooR-API-Client door_shared_memory)
-find_library(door_shared_memory REQUIRED)
-
-if (DOOR_SHARED_MEMORY_FOUND)
-    include_directories(${DOOR_SHARED_MEMORY_INCLUDE_DIRS})
-    target_link_libraries(DooR-API-Clients ${DOOR_SHARED_MEMORY_LIBRARIES})
-endif (DOOR_SHARED_MEMORY_FOUND)
-
+target_link_libraries(DooR-API-Client door_shared_memory)
 

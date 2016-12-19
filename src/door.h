@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-#include "shared_memory.h"
+#include "door_shared_memory/shared_memory.h"
 
 class Door
 {
