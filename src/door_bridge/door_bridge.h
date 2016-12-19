@@ -1,16 +1,16 @@
-#ifndef DOOR_H_
-#define DOOR_H_
+#ifndef DOOR_BRIDGE_H_
+#define DOOR_BRIDGE_H_
 
 #include <iostream>
 #include <string>
 
 #include "door_shared_memory/shared_memory.h"
 
-class Door
+class DoorBridge
 {
 public:
-    Door();
-    ~Door();
+    DoorBridge();
+    ~DoorBridge();
 private:
     bool init();
 

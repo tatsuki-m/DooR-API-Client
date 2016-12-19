@@ -1,16 +1,16 @@
-#include "door.h"
+#include "door_bridge.h"
 
-Door::Door() {
+DoorBridge::DoorBridge() {
     baseShmKeyName_ = "shmKey0000";
     // shared memory for baseShmKkey
     init();
 }
 
-Door::~Door() {
+DoorBridge::~DoorBridge() {
 }
 
 bool
-Door::init() {
+DoorBridge::init() {
     // init baseShmKey
     // SharedMemory* baseShmKey = new SharedMemory(baseShmKeyName_);
     // std::string bridgeShmKeyName = baseShmKey->initRead();
