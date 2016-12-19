@@ -17,11 +17,9 @@ main() {
 
     // write BridgeShmKey to AppBaseShm. which will be refered from Door librry in bridge side
     SharedMemory<char, SharedKey>* appBaseShm = new SharedMemory<char, SharedKey>(appBaseShmKey);
-    appBaseShm->write((char*)bridgeShmKey.c_str()); /* loop */
+    appBaseShm->write((char*)bridgeShmKey.c_str()); /* loop: keep writing */
 
-    // delete[] appBaseShmKey;
-
-    // delete appBaseShm;
+    delete appBaseShm;
     return 0;
 };
 

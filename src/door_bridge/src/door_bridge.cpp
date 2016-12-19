@@ -1,23 +1,22 @@
 #include "door_bridge.h"
 
 DoorBridge::DoorBridge() {
-    baseShmKeyName_ = "shmKey0000";
+    appBaseShmKey_ = "shmKey0000";
+    doorShmKey_ = NULL;
     // shared memory for baseShmKkey
     init();
 }
 
 DoorBridge::~DoorBridge() {
+    delete doorShmKey_;
 }
 
 bool
 DoorBridge::init() {
     // init baseShmKey
-    // SharedMemory* baseShmKey = new SharedMemory(baseShmKeyName_);
-    // std::string bridgeShmKeyName = baseShmKey->initRead();
-    // init bridgeShmKey
-    // SharedMemory* bridgeShmKey = new SharedMemory(bridgeShmKeyName);
-    // std::string appShmKeyName_ = bridgeShmKey->initRead();
-    // std::cout << appShmKeyName_ << std::endl;
+    SharedMemory<char, SharedKey>* appBaseShmKey = new SharedMemory<char, SharedKey>(appBaseShmKey_);
+    appBaseShmKey->read(&doorShmKey_);
+    std::cout << doorShmKey_ << std::endl;
     return true;
 }
 

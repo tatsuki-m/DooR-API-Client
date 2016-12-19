@@ -38,7 +38,7 @@ install(TARGETS door_bridge
     PUBLIC_HEADER   DESTINATION "include/${PROJECT_NAME}"
 )
 
-install(EXPORT door_bridge
+install(EXPORT door_bridge_export
     FILE door_bridge-config.cmake
     DESTINATION "share/cmake/${PROJECT_NAME}/"
     EXPORT_LINK_INTERFACE_LIBRARIES

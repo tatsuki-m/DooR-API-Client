@@ -5,6 +5,7 @@
 #include <string>
 
 #include "door_shared_memory/shared_memory.h"
+#include "door_shared_memory/shared_key.h"
 
 class DoorBridge
 {
@@ -13,10 +14,8 @@ public:
     ~DoorBridge();
 private:
     bool init();
-
-    std::string baseShmKeyName_;
-    std::string appShmKeyName_;
-
+    std::string appBaseShmKey_;
+    char* doorShmKey_;
 };
 
 #endif
