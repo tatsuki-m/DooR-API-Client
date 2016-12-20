@@ -35,9 +35,7 @@ private:
     void closeSocket();
 
     struct SocketAck ack_;
-
     int server_;
-    char shmKey_[16];
     std::string socketName_;
 };
 
