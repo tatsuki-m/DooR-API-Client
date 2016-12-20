@@ -28,7 +28,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
-    PUBLIC_HEADER "${PUBLIC_HDRS}"
+    PUBLIC_HEADER "${HDRS}"
 )
 
 install(TARGETS door_bridge
