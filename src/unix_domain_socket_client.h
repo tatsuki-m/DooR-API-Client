@@ -1,5 +1,5 @@
-#ifndef UNIX_CLIENT_H_
-#define UNIX_CLIENT_H_
+#ifndef UNIX_DOMAIN_SOCKET_CLIENT_H_
+#define UNIX_DOMAIN_SOCKET_CLIENT_H_
 
 #pragma once
 
@@ -12,18 +12,17 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <unistd.h>
-
 #include <fstream>
 #include <iostream>
 #include <string>
 
-using namespace std;
+#include "socket_ack.h"
 
-class UnixClient {
+class UnixDomainSocketClient {
 
 public:
-    UnixClient();
-    ~UnixClient();
+    UnixDomainSocketClient(std::string, SocketType type);
+    ~UnixDomainSocketClient();
 
     void run();
     std::string getRecievedKey();
@@ -31,14 +30,13 @@ public:
 private:
     void create();
     void handle();
-    bool send_ack();
-    bool get_response();
-    void close_socket();
+    bool sendAck();
+    bool getResponse();
+    void closeSocket();
 
+    struct SocketAck ack_;
     int server_;
-    char shmKey_[16];
-    int ack_;
-    static const char* socket_name_;
+    std::string socketName_;
 };
 
 #endif
