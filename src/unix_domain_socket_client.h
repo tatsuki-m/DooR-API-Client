@@ -25,7 +25,7 @@ public:
     ~UnixDomainSocketClient();
 
     void run();
-    std::string getRecievedKey();
+    std::string getRecievedData();
 
 private:
     void create();

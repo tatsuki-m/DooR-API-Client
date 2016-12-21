@@ -106,3 +106,9 @@ UnixDomainSocketClient::getResponse() {
     }
 }
 
+std::string
+UnixDomainSocketClient::getRecievedData() {
+    std::string data = ack_.data;
+    return data;
+}
+
