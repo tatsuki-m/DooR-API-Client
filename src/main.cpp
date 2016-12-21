@@ -2,6 +2,7 @@
 #include <string>
 
 #include "unix_domain_socket_client.h"
+#include "socket_ack.h"
 #include "door_bridge/door_bridge.h"
 
 #include "door_shared_memory/shared_memory.h"
