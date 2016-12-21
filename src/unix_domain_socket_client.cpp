@@ -38,7 +38,7 @@ UnixDomainSocketClient::create() {
         memset(&server_addr, 0, sizeof(server_addr));
         server_addr.sun_family = AF_UNIX;
         strncpy(server_addr.sun_path, socketName_.c_str(), sizeof(server_addr.sun_path) - 1);
-        server_ = socket(PF_UNIX, SOCK_STREAM, 0);
+        server_ = socket(AF_UNIX, SOCK_STREAM, 0);
         if (!server_) {
             std::cerr << "socket: " << std::endl;
             throw;
