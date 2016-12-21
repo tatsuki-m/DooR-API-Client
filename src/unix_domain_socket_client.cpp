@@ -73,7 +73,6 @@ UnixDomainSocketClient::sendAck() {
     std::cout << "UnixDomainSocketLient::sendAck()" << std::endl;
     try {
         int ss;
-        ack_.request='n'; /* not use now, creat request considering scalability */
         if ((ss = send(server_, &ack_, sizeof(ack_), 0)) < 0) {
             std::cerr << "send: " << std::endl;
             return false;
@@ -98,6 +97,7 @@ UnixDomainSocketClient::getResponse() {
             return false;
         } else {
             std::cout << "success" << std::endl;
+            std::cout << ack_.data << std::endl;
             return true;
         }
     } catch(...) {

@@ -14,7 +14,7 @@ main() {
 
     // run socket communication
     std::string socketName = "/tmp/unix-socket";
-    SocketType type = SHARED_SOCKET;
+    SocketType type = ASK_SOCKET;
     UnixDomainSocketClient client = UnixDomainSocketClient(socketName, type);
     client.run();
 
