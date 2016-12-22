@@ -17,8 +17,8 @@
 #include <string>
 #include <vector>
 
-#include "socket_ack.h"
-#include "unix_domain_socket_client.h"
+#include "door_bridge/socket_ack.h"
+#include "door_bridge/unix_domain_socket_client.h"
 
 class UnixDomainSocketStepServer {
 
