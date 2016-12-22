@@ -1,33 +1,23 @@
 #include <iostream>
 #include <string>
 
+#include "bridge_manager.h"
 #include "unix_domain_socket_client.h"
 #include "socket_ack.h"
-#include "door_bridge/door_bridge.h"
-
-#include "door_shared_memory/shared_memory.h"
-#include "door_shared_memory/shared_key.h"
-
 
 int
 main() {
     // this shmKey for application to know the shared memory name, which connected client and server
 
     // run socket communication
-    std::string socketName = "/tmp/unix-socket";
+    std::string initSocketName = "/tmp/unix-socket";
     SocketType type = ASK_SOCKET;
-    UnixDomainSocketClient client = UnixDomainSocketClient(socketName, type);
+    UnixDomainSocketClient client = UnixDomainSocketClient(initSocketName, type);
     client.run();
+    std::string workerSocketName = client.getRecievedData();
 
-
-    // write BridgeShmKey to AppBaseShm. which will be refered from Door librry in bridge side
-//    SharedMemory<char, SharedKey>* appBaseShm = new SharedMemory<char, SharedKey>(appBaseShmKey);
-//    appBaseShm->write((char*)bridgeShmKey.c_str());
-
-
-//    DoorBridge* bridge = new DoorBridge();
-//    sleep(1);
-//    delete bridge;
+    BridgeManager* bridgeManager = new BridgeManager(workerSocketName);
+    delete bridgeManager;
 
     return 0;
 };

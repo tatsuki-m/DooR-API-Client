@@ -25,7 +25,7 @@ public:
     ~UnixDomainSocketClient();
 
     void run();
-    std::string getRecievedKey();
+    std::string getRecievedData();
 
 private:
     void create();
@@ -33,6 +33,8 @@ private:
     bool sendAck();
     bool getResponse();
     void closeSocket();
+    std::string getSocketName();
+    std::string getShmKey();
 
     struct SocketAck ack_;
     int server_;
