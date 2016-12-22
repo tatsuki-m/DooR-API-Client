@@ -8,6 +8,7 @@ UnixDomainSocketStepServer::UnixDomainSocketStepServer(std::string workerSocketN
 }
 
 UnixDomainSocketStepServer::~UnixDomainSocketStepServer() {
+    closeSocket();
 }
 
 void
@@ -106,6 +107,7 @@ UnixDomainSocketStepServer::askShmKey(SocketAck &ack) {
     UnixDomainSocketClient client = UnixDomainSocketClient(workerSocketName_, ASK_SHM);
     client.run();
     std::string data = client.getRecievedData();
+    // TODO; save shmkey to vector
     strcpy(ack.data, data.c_str());
 }
 

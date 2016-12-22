@@ -10,5 +10,6 @@ BridgeManager::~BridgeManager() {
 void
 BridgeManager::init() {
     UnixDomainSocketStepServer socket = UnixDomainSocketStepServer(workerSocketName_);
+    socket.run();
 }
 

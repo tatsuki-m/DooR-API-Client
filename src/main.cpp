@@ -14,9 +14,10 @@ main() {
     SocketType type = ASK_SOCKET;
     UnixDomainSocketClient client = UnixDomainSocketClient(initSocketName, type);
     client.run();
-    //std::string worker_socketName = client.getRecieveKey();
+    std::string workerSocketName = client.getRecievedData();
 
-//    BridgeManager bridgeManager = new BridgeManager;
+    BridgeManager* bridgeManager = new BridgeManager(workerSocketName);
+    delete bridgeManager;
 
     return 0;
 };
