@@ -15,6 +15,7 @@ main() {
     UnixDomainSocketClient client = UnixDomainSocketClient(initSocketName, type);
     client.run();
     std::string workerSocketName = client.getRecievedData();
+    std::cout << "main:: workerSocketName: " << workerSocketName << std::endl;
 
     BridgeManager* bridgeManager = new BridgeManager(workerSocketName);
     delete bridgeManager;

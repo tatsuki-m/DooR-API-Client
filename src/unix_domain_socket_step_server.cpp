@@ -1,8 +1,9 @@
 #include "unix_domain_socket_step_server.h"
 
-std::string LIBRARY_SOCKET_NAME = "/tmp/library-unix-socket";
+std::string LIBRARY_SOCKET_NAME = "/tmp/unix-socket-library";
 
 UnixDomainSocketStepServer::UnixDomainSocketStepServer(std::string workerSocketName) {
+    std::cout << "UnixDomainSocketStepServer::UnixDomainSocketStepServer" << std::endl;
     librarySocketName_ = LIBRARY_SOCKET_NAME;
     workerSocketName_ = workerSocketName;
 }
@@ -25,6 +26,7 @@ UnixDomainSocketStepServer::create() {
 
         memset(&server_addr, 0, sizeof(server_addr));
         server_addr.sun_family = AF_UNIX;
+        std::cout << librarySocketName_ << std::endl;
         strncpy(server_addr.sun_path, librarySocketName_.c_str(), sizeof(server_addr.sun_path) -1);
 
         // create socket

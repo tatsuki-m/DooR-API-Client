@@ -96,8 +96,7 @@ UnixDomainSocketClient::getResponse() {
             std::cerr << "recv" << std::endl;
             return false;
         } else {
-            std::cout << "success" << std::endl;
-            std::cout << ack_.data << std::endl;
+            std::cout << "success: " << ack_.data << std::endl;
             return true;
         }
     } catch(...) {

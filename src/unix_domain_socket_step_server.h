@@ -38,8 +38,6 @@ private:
     void closeSocket();
     void askShmKey(SocketAck&);
     void sendDoorShmKey(int, SocketAck&);
-    std::string getSocketName();
-    std::string getShmKey();
 
     int server_;
     //TODO: move to bridge manager, in this class, just have pointer of it

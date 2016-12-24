@@ -1,26 +1,20 @@
 #include "door_bridge.h"
 
+std::string LIBRARY_SOCKET_NAME = "/tmp/library-unix-socket";
+
 DoorBridge::DoorBridge() {
     std::cout << "=====DoorBridge::DoorBridge=====" << std::endl;
-    appBaseShmKey_ = "shmKey0000";
-    doorShmKey_ = NULL;
-    // shared memory for baseShmKkey
     init();
 }
 
 DoorBridge::~DoorBridge() {
-    delete doorShmKey_;
 }
 
-bool
+void
 DoorBridge::init() {
-    // init baseShmKey
-    std::cout << "=====DoorBridge::init======" << std::endl;
-    std::cout << "appBaseShmKey: " << appBaseShmKey_ << std::endl;
-    std::cout << "doorShmKey: " << doorShmKey_ << std::endl;
-    SharedMemory<char, SharedKey>* appBaseShm = new SharedMemory<char, SharedKey>(appBaseShmKey_);
-    std::cout << "doorShmKey:" << doorShmKey_ << std::endl;
-    appBaseShm->read(&doorShmKey_);
-    return true;
+    SocketType type = ASK_SHM;
+    UnixDomainSocketClient socket = UnixDomainSocketClient(LIBRARY_SOCKET_NAME, type);
+    socket.run();
+    std::string doorShmKey = socket.getRecievedData();
 }
 
