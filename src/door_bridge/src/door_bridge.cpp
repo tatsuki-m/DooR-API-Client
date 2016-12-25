@@ -1,6 +1,6 @@
 #include "door_bridge.h"
 
-std::string LIBRARY_SOCKET_NAME = "/tmp/library-unix-socket";
+std::string LIBRARY_SOCKET_NAME = "/tmp/unix-socket-library";
 
 DoorBridge::DoorBridge() {
     std::cout << "=====DoorBridge::DoorBridge=====" << std::endl;
