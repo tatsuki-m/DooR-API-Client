@@ -16,8 +16,13 @@ class DoorBridge
 public:
     DoorBridge();
     ~DoorBridge();
+
+    //api
+    void getAllInformation(Dpi* dpi, std::string);
+
 private:
     void init();
+    std::string doorShmKey_;
 
 };
 
