@@ -76,13 +76,13 @@ UnixDomainSocketClient::sendAck() {
         if ((ss = send(server_, &ack_, sizeof(ack_), 0)) < 0) {
             std::cerr << "send: " << std::endl;
             return false;
-            throw;
         } else {
             return true;
         }
     } catch(...) {
         unlink(socketName_.c_str());
         close(server_);
+        return false;
     }
 }
 
@@ -96,13 +96,13 @@ UnixDomainSocketClient::getResponse() {
             std::cerr << "recv" << std::endl;
             return false;
         } else {
-            std::cout << "success" << std::endl;
-            std::cout << ack_.data << std::endl;
+            std::cout << "success: " << ack_.data << std::endl;
             return true;
         }
     } catch(...) {
         unlink(socketName_.c_str());
         close(server_);
+        return false;
     }
 }
 

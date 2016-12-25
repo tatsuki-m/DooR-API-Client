@@ -17,8 +17,8 @@
 #include <string>
 #include <vector>
 
-#include "socket_ack.h"
-#include "unix_domain_socket_client.h"
+#include "door_bridge/socket_ack.h"
+#include "door_bridge/unix_domain_socket_client.h"
 
 class UnixDomainSocketStepServer {
 
@@ -38,8 +38,6 @@ private:
     void closeSocket();
     void askShmKey(SocketAck&);
     void sendDoorShmKey(int, SocketAck&);
-    std::string getSocketName();
-    std::string getShmKey();
 
     int server_;
     //TODO: move to bridge manager, in this class, just have pointer of it

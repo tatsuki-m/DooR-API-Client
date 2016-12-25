@@ -2,8 +2,8 @@
 #include <string>
 
 #include "bridge_manager.h"
-#include "unix_domain_socket_client.h"
-#include "socket_ack.h"
+#include "door_bridge/unix_domain_socket_client.h"
+#include "door_bridge/socket_ack.h"
 
 int
 main() {
@@ -15,6 +15,7 @@ main() {
     UnixDomainSocketClient client = UnixDomainSocketClient(initSocketName, type);
     client.run();
     std::string workerSocketName = client.getRecievedData();
+    std::cout << "main:: workerSocketName: " << workerSocketName << std::endl;
 
     BridgeManager* bridgeManager = new BridgeManager(workerSocketName);
     delete bridgeManager;
