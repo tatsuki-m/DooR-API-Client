@@ -6,6 +6,7 @@ UnixDomainSocketStepServer::UnixDomainSocketStepServer(std::string workerSocketN
     std::cout << "UnixDomainSocketStepServer::UnixDomainSocketStepServer" << std::endl;
     librarySocketName_ = LIBRARY_SOCKET_NAME;
     workerSocketName_ = workerSocketName;
+    unlink(librarySocketName_.c_str());
 }
 
 UnixDomainSocketStepServer::~UnixDomainSocketStepServer() {
@@ -26,29 +27,26 @@ UnixDomainSocketStepServer::create() {
 
         memset(&server_addr, 0, sizeof(server_addr));
         server_addr.sun_family = AF_UNIX;
-        std::cout << librarySocketName_ << std::endl;
-        strncpy(server_addr.sun_path, librarySocketName_.c_str(), sizeof(server_addr.sun_path) -1);
+        strncpy(server_addr.sun_path, librarySocketName_.c_str(), sizeof(server_addr.sun_path) - 1);
 
-        // create socket
         server_ = socket(AF_UNIX, SOCK_STREAM, 0);
-        if (!server_) {
-            std::cerr << "WorkerUnixDomainSocketServer::Create socket: ";
+        if(!server_) {
+            std::cerr << "UnixDomainSocketStepServer::socket: ";
             throw;
         }
 
-        if (setsockopt(server_, SOL_SOCKET, SO_REUSEADDR, &soval, sizeof(soval)) == -1 ) {
-            std::cerr << "WorkerUnixDomainSocketServer::Create setsockopt: ";
+        if(setsockopt(server_, SOL_SOCKET, SO_REUSEADDR, &soval, sizeof(soval)) == -1) {
+            std::cerr << "UnixDomainSOcketStepServer::Create setsockopt: ";
             throw;
         }
 
         if (bind(server_, (const struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
-            std::cerr << "WorkerUnixDomainSocketServer::Create bind: ";
+            std::cerr << "UnixDomainSocketStepServer::Create bind: ";
             throw;
         }
 
-        // convert the socket listen for incoming connections
         if (listen(server_, 10) < 0) {
-            std::cerr << "WorkerUnixDomainSocketServer::Create listen: ";
+            std::cerr << "UnixDomainSocketStepServer::Create listn: ";
             throw;
         }
     } catch(...) {

@@ -10,6 +10,7 @@ BridgeManager::~BridgeManager() {
 
 void
 BridgeManager::init() {
+    std::cout << "BridgeManger::init()" << std::endl;
     UnixDomainSocketStepServer socket = UnixDomainSocketStepServer(workerSocketName_);
     socket.run();
 }
