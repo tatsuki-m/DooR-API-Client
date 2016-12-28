@@ -25,4 +25,5 @@ find_package(door_bridge REQUIRED)
 add_executable(DooR-API-Client ${APISrcs})
 target_link_libraries(DooR-API-Client door_shared_memory)
 target_link_libraries(DooR-API-Client door_bridge)
+target_link_libraries(DooR-API-Client door_api)
 
