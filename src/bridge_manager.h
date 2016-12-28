@@ -4,8 +4,8 @@
 #include <iostream>
 #include <string>
 
-#include "door_bridge/socket_ack.h"
 #include "unix_domain_socket_step_server.h"
+#include "door_bridge/socket_ack.h"
 
 class BridgeManager
 {

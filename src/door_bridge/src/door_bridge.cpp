@@ -13,16 +13,43 @@ DoorBridge::~DoorBridge() {
 void
 DoorBridge::init() {
     std::cout << "DoorBridge::init" << std::endl;
+    getDoorShmKey();
+}
+
+void
+DoorBridge::getDoorShmKey() {
     SocketType type = ASK_SHM;
     UnixDomainSocketClient socket = UnixDomainSocketClient(LIBRARY_SOCKET_NAME, type);
     socket.run();
     doorShmKey_ = socket.getRecievedData();
 }
 
-void
-DoorBridge::getAllInformation(Dpi* dpi, std::string keyword) {
-//    Door door = Door(keyword);
+bool
+DoorBridge::readShm(Dpi* dpi) {
     SharedMemory<Dpi, SharedPacketInformation>* doorShm = new SharedMemory<Dpi, SharedPacketInformation>(doorShmKey_);
-    doorShm->read(&dpi);
+    bool is_read = doorShm->read(&dpi);
+    std::cout << "DoorBridge::readShm: " << dpi->id_<< std::endl;
+    return is_read;
+}
+
+//API
+bool
+DoorBridge::getAllInformation(Dpi*& dpi, std::string keyword) {
+    bool is_written, is_read;
+    is_written = client_.getAllInformation(doorShmKey_, keyword);
+    //is_read = readShm(dpi);
+
+    std::cout << "dpi address:" << &dpi << std::endl;
+    SharedMemory<Dpi, SharedPacketInformation>* doorShm = new SharedMemory<Dpi, SharedPacketInformation>(doorShmKey_);
+    is_read = doorShm->read(&dpi);
+    std::cout << "DoorBridge::readShm: " << dpi->id_<< std::endl;
+    std::cout << "dpi address:" << &dpi << std::endl;
+
+    if (is_read && is_written) {
+        std::cout << "read shared memory data" << std::endl;
+        return true;
+    } else {
+        return false;
+    }
 }
 
