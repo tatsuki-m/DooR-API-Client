@@ -18,8 +18,8 @@ set(CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE ON)
 file(GLOB Srcs "./src/*.cpp")
 file(GLOB HDRS "./src/*.h")
 
-
 include_directories("${PROJECT_SOURCE_DIR}")
+
 add_library(${PROJECT_NAME} SHARED ${Srcs})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
