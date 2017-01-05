@@ -35,17 +35,15 @@ DoorBridge::readShm(Dpi* dpi) {
 //API
 bool
 DoorBridge::getAllInformation(Dpi*& dpi, std::string keyword) {
-    bool is_written, is_read;
-    is_written = client_.getAllInformation(doorShmKey_, keyword);
-    //is_read = readShm(dpi);
+    bool is_read;
+    client_.getAllInformation(doorShmKey_, keyword);
 
-    std::cout << "dpi address:" << &dpi << std::endl;
     SharedMemory<Dpi, SharedPacketInformation>* doorShm = new SharedMemory<Dpi, SharedPacketInformation>(doorShmKey_);
     is_read = doorShm->read(&dpi);
     std::cout << "DoorBridge::readShm: " << dpi->id_<< std::endl;
     std::cout << "dpi address:" << &dpi << std::endl;
 
-    if (is_read && is_written) {
+    if (is_read) {
         std::cout << "read shared memory data" << std::endl;
         return true;
     } else {

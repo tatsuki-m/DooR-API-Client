@@ -4,9 +4,9 @@ std::string LIBRARY_SOCKET_NAME = "/tmp/unix-socket-library";
 
 UnixDomainSocketStepServer::UnixDomainSocketStepServer(std::string workerSocketName) {
     std::cout << "UnixDomainSocketStepServer::UnixDomainSocketStepServer" << std::endl;
+    unlink(librarySocketName_.c_str());
     librarySocketName_ = LIBRARY_SOCKET_NAME;
     workerSocketName_ = workerSocketName;
-    unlink(librarySocketName_.c_str());
 }
 
 UnixDomainSocketStepServer::~UnixDomainSocketStepServer() {
