@@ -23,7 +23,6 @@ public:
 private:
     void init();
     void getDoorShmKey();
-    bool readShm(Dpi*);
     std::string doorShmKey_;
     DoorApi client_;
 };

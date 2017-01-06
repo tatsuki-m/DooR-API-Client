@@ -24,19 +24,11 @@ DoorBridge::getDoorShmKey() {
     doorShmKey_ = socket.getRecievedData();
 }
 
-bool
-DoorBridge::readShm(Dpi* dpi) {
-    SharedMemory<Dpi, SharedPacketInformation>* doorShm = new SharedMemory<Dpi, SharedPacketInformation>(doorShmKey_);
-    bool is_read = doorShm->read(&dpi);
-    std::cout << "DoorBridge::readShm: " << dpi->id_<< std::endl;
-    return is_read;
-}
-
 //API
 bool
 DoorBridge::getAllInformation(Dpi*& dpi, std::string keyword) {
     bool is_read;
-    client_.getAllInformation(doorShmKey_, keyword);
+    client_.callDoorWithSem(doorShmKey_, keyword);
 
     SharedMemory<Dpi, SharedPacketInformation>* doorShm = new SharedMemory<Dpi, SharedPacketInformation>(doorShmKey_);
     is_read = doorShm->read(&dpi);
