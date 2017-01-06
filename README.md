@@ -21,7 +21,7 @@ $ make
 ## how to work
 1. Create data container to share shared library
 ```console
-$ docker run -it --ipc=host -v /usr/local/lib:/usr/local/lib -v /user/local/include:/usr/local/include -v ./DooR-API-Client:. centos /bin/bash
+$ docker run -it --ipc=host -v /usr/local/lib:/usr/local/lib -v /user/local/include:/usr/local/include centos /bin/bash
 ```
 
 2. Create Client image and Run Client container
