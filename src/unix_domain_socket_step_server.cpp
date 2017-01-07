@@ -1,6 +1,7 @@
 #include "unix_domain_socket_step_server.h"
 
-std::string LIBRARY_SOCKET_NAME = "/tmp/unix-socket-library";
+// this socket will be shared in cotainer
+std::string LIBRARY_SOCKET_NAME = "/tmp/unix-socket/unix-socket-library";
 
 UnixDomainSocketStepServer::UnixDomainSocketStepServer(std::string workerSocketName) {
     std::cout << "UnixDomainSocketStepServer::UnixDomainSocketStepServer" << std::endl;
