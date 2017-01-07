@@ -27,7 +27,7 @@ $ docker run --name libcontainer --ipc=host -v /usr/local/lib:/usr/local/lib -v 
 2. Create Client image and Run Client container
 ```console
 $ docker build -f Dockerfile .
-$ docker run --ipc=host -it -v /tmp:/tmp --volumes-from libcontainer [Image ID] /bin/bash
+$ docker run --ipc=host -it --volumes-from libcontainer [Image ID] /bin/bash
 ```
 
 3. Run program
