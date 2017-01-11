@@ -17,9 +17,15 @@ file(GLOB APISrcs "./src/*.cpp")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/src")
 
+# add door shared door_shared_memory
+add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/src/door_bridge")
+# add includes for door_shared_memory
+include_directories("${door_bridge_SOURCE_DIR}/src")
+# add library path for door_shared_memory
+set(CMAKE_LIBRARY_PATH "${door_bridge}" ${CMAKE_LIBRARY_PATH})
+
 # install package
 find_package(door_shared_memory REQUIRED)
-find_package(door_bridge REQUIRED)
 # find_package(door_unix_domain_socket_client REQUIRED)
 
 # select executable file
