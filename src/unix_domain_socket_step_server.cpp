@@ -1,12 +1,12 @@
 #include "unix_domain_socket_step_server.h"
 
 // this socket will be shared in cotainer
-std::string LIBRARY_SOCKET_NAME = "/tmp/unix-socket/unix-socket-library";
+std::string DOCKER_SOCKET_NAME = "/tmp/docker-unix-socket";
 
 UnixDomainSocketStepServer::UnixDomainSocketStepServer(std::string workerSocketName) {
     std::cout << "UnixDomainSocketStepServer::UnixDomainSocketStepServer" << std::endl;
     unlink(librarySocketName_.c_str());
-    librarySocketName_ = LIBRARY_SOCKET_NAME;
+    librarySocketName_ = DOCKER_SOCKET_NAME;
     workerSocketName_ = workerSocketName;
 }
 
@@ -18,6 +18,7 @@ void
 UnixDomainSocketStepServer::run() {
     create();
     serve();
+    closeSocket();
 }
 
 void

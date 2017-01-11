@@ -1,6 +1,6 @@
 #include "door_bridge.h"
 
-std::string LIBRARY_SOCKET_NAME = "/tmp/unix-socket/unix-socket-library";
+std::string DOCKER_SOCKET_NAME = "/tmp/docker-unix-socket";
 
 DoorBridge::DoorBridge() {
     std::cout << "DoorBridge::DoorBridge" << std::endl;
@@ -19,7 +19,7 @@ DoorBridge::init() {
 void
 DoorBridge::getDoorShmKey() {
     SocketType type = ASK_SHM;
-    UnixDomainSocketClient socket = UnixDomainSocketClient(LIBRARY_SOCKET_NAME, type);
+    UnixDomainSocketClient socket = UnixDomainSocketClient(DOCKER_SOCKET_NAME, type);
     socket.run();
     doorShmKey_ = socket.getRecievedData();
 }
