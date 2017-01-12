@@ -21,7 +21,7 @@ $ make
 ## how to work
 1. Create data container to share shared library
 ```console
-$ docker run --name libcontainer --ipc=host -v /usr/local/lib:/usr/local/lib -v /user/local/include:/usr/local/include -v /tmp:/tmp centos
+$ docker run --name libcontainer --ipc=host -v /usr/local/lib:/usr/local/lib -v /user/local/include:/usr/local/include -v /tmp/unix-socket:/tmp/unix-socket -v /tmp/recorder:/tmp/recorder centos
 ```
 
 2. Create Client image and Run Client container
