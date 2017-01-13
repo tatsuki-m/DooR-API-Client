@@ -65,7 +65,7 @@ UnixDomainSocketStepServer::serve() {
     while (1) {
         std::cout << "socket running" << std::endl;
         try {
-            if ((client = accept(server_, (struct sockaddr *)&client_addr, &clientlen)) > 0) {
+         if ((client = accept(server_, (struct sockaddr *)&client_addr, &clientlen)) > 0) {
                 handle(client);
             } else {
                 throw;
@@ -106,11 +106,13 @@ UnixDomainSocketStepServer::getRequest(int client, SocketAck &ack) {
 
 void
 UnixDomainSocketStepServer::askShmKey(SocketAck &ack) {
+    std::cout << "UnixDomainSocketStepServer::askShmKey" << std::endl;
     UnixDomainSocketClient client = UnixDomainSocketClient(workerSocketName_, ASK_SHM);
     client.run();
     std::string data = client.getRecievedData();
     // TODO; save shmkey to vector
     strcpy(ack.data, data.c_str());
+    std::cout << "ack.data" << std::endl;
 }
 
 void

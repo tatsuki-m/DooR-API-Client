@@ -17,13 +17,13 @@ public:
     DoorBridge();
     ~DoorBridge();
 
-    //api
-    bool getInformationWithSem(Dpi*& dpi, std::string);
+    bool callDoorWithSem();
+    void getPacketDataWithSem(Dpi*& dpi);
+    void getDoorKey();
 
 private:
     void init();
-    void getDoorShmKey();
-    std::string doorShmKey_;
+    std::string doorKey_;
     DoorApi client_;
 };
 
