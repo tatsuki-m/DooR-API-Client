@@ -7,10 +7,12 @@
 #include "door_unix_domain_socket_client/socket_ack.h"
 
 std::string INIT_SOCKET_NAME = "/tmp/unix-socket/unix-socket";
+std::string CONTAINER_SOCKET = "/tmp/docker-unix-socket";
 
 void
 signalHandler(int sigNum) {
     std::cout << "Interrupt signal (" << sigNum << ") received." << std::endl;
+    unlink(CONTAINER_SOCKET.c_str());
     std::cout << "Going to sleep.." <<std::endl;
     exit(sigNum);
 }
