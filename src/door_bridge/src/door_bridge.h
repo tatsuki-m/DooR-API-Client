@@ -10,6 +10,7 @@
 #include "door_shared_memory/shared_memory.h"
 #include "door_shared_memory/shared_packet_information.h"
 #include "door_shared_memory/dpi.h"
+#include "door_shared_memory/sync_semaphore.h"
 
 class DoorBridge
 {
@@ -20,10 +21,13 @@ public:
     bool callDoorWithSem();
     void getPacketDataWithSem(Dpi*& dpi);
     void getDoorKey();
-
+    void createSem();
+    void waitDoorNotification();
 private:
     void init();
+
     std::string doorKey_;
+    SyncSemaphore doorSem_;
     DoorApi client_;
 };
 
