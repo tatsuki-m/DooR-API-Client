@@ -18,6 +18,8 @@ DoorBridge::init() {
     createSem();
 }
 
+
+// get DoorKey
 void
 DoorBridge::getDoorKey() {
     SocketType type = ASK_SHM;
@@ -26,18 +28,42 @@ DoorBridge::getDoorKey() {
     doorKey_ = socket.getRecievedData();
 }
 
+// sync
 void
 DoorBridge::createSem() {
     std::cout << "DoorBridge::createSem()" << std::endl;
     doorSem_.create(doorKey_);
 }
 
-// this function is located in getInformationWithSem by all rights
-// this function is separated because of experiment
-bool
+
+// =====================
+// call for door
+// =====================
+void
 DoorBridge::callDoorWithSem() {
-    bool is_success = client_.callDoorWithSem(doorKey_);
-    return is_success;
+    bool is_sucess = client_.callDoor(doorKey_, SHM);
+    if (is_sucess)
+        waitDoorNotification();
+    else
+        std::cerr << "error";
+}
+
+void
+DoorBridge::callDoorWithUds() {
+    bool is_sucess = client_.callDoor(doorKey_, UD_SOCK);
+    if (is_sucess)
+        waitDoorNotification();
+    else
+        std::cerr << "error";
+}
+
+void
+DoorBridge::callDoorWithTcp() {
+    bool is_sucess = client_.callDoor(doorKey_, TCP_SOCK);
+    if (is_sucess)
+        waitDoorNotification();
+    else
+        std::cerr << "error";
 }
 
 //sync
@@ -47,10 +73,13 @@ DoorBridge::waitDoorNotification() {
 }
 
 
-//API
+//=======================
+// API
+// ======================
 void
 DoorBridge::getPacketDataWithSem(Dpi*& dpi) {
     SharedMemory<Dpi, SharedPacketInformation> doorSem = SharedMemory<Dpi, SharedPacketInformation>(doorKey_);
     doorSem.read(&dpi);
 }
+
 
