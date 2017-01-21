@@ -18,7 +18,6 @@ DoorBridge::init() {
     createSem();
 }
 
-
 // get DoorKey
 void
 DoorBridge::getDoorKey() {
@@ -35,43 +34,37 @@ DoorBridge::createSem() {
     doorSem_.create(doorKey_);
 }
 
-
 // =====================
 // call for door
 // =====================
 void
 DoorBridge::callDoorWithSem() {
-    bool is_sucess = client_.callDoor(doorKey_, SHM);
-    if (is_sucess)
-        waitDoorNotification();
-    else
-        std::cerr << "error";
+    client_.callDoor(doorKey_, SHM);
+    doorSem_.wait();
 }
 
 void
 DoorBridge::callDoorWithUds() {
-    bool is_sucess = client_.callDoor(doorKey_, UD_SOCK);
-    if (is_sucess)
-        waitDoorNotification();
-    else
-        std::cerr << "error";
+    client_.callDoor(doorKey_, UD_SOCK);
+    std::cout << doorSem_.getValue() << std::endl;
+    doorSem_.wait();
 }
 
 void
 DoorBridge::callDoorWithTcp() {
-    bool is_sucess = client_.callDoor(doorKey_, TCP_SOCK);
-    if (is_sucess)
-        waitDoorNotification();
-    else
-        std::cerr << "error";
+    client_.callDoor(doorKey_, TCP_SOCK);
+    syncDpi();
 }
 
-//sync
 void
-DoorBridge::waitDoorNotification() {
+DoorBridge::syncDpi() {
+    std::cout << doorSem_.getValue() << std::endl;
+    sleep(5);
+    std::cout << "DoorBridge::syncDpi()" << std::endl;
     doorSem_.wait();
+    std::cout << "DoorBridge::syncDpi()" << std::endl;
+    std::cout << "num: " << doorSem_.getValue() << std::endl;
 }
-
 
 //=======================
 // API
@@ -82,4 +75,10 @@ DoorBridge::getPacketDataWithSem(Dpi*& dpi) {
     doorSem.read(&dpi);
 }
 
+void
+DoorBridge::getPacketDataWithUds(Dpi*& dpi) {
+    SocketClient socket = SocketClient(doorKey_);
+    socket.run();
+    socket.getDpi(dpi);
+}
 

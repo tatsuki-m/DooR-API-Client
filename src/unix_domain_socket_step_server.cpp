@@ -22,6 +22,12 @@ UnixDomainSocketStepServer::run() {
 }
 
 void
+UnixDomainSocketStepServer::closeSocket() {
+    std::cout << "UnixDomainSocketStepServer::closeSocket()" << std::endl;
+    unlink(librarySocketName_.c_str());
+}
+
+void
 UnixDomainSocketStepServer::create() {
     try {
         struct sockaddr_un server_addr;
@@ -132,9 +138,4 @@ UnixDomainSocketStepServer::sendDoorShmKey(int client, SocketAck &ack) {
 
 }
 
-void
-UnixDomainSocketStepServer::closeSocket() {
-    std::cout << "UnixDomainSocketStepServer::closeSocket()" << std::endl;
-    unlink(librarySocketName_.c_str());
-}
 

@@ -12,6 +12,7 @@
 #include "door_ipc/shared_packet_information.h"
 #include "door_ipc/dpi.h"
 #include "door_ipc/sync_semaphore.h"
+#include "door_ipc/socket_client.h"
 
 class DoorBridge
 {
@@ -24,18 +25,17 @@ public:
     void callDoorWithUds();
     void callDoorWithTcp();
 
+
     // get from door
     void getPacketDataWithSem(Dpi*& dpi);
-    void getPacketDataWithUds();
-
+    void getPacketDataWithUds(Dpi*& dpi);
 
 private:
     void init();
     void createSem();
     void getDoorKey();
 
-    // sync
-    void waitDoorNotification();
+    void syncDpi();
 
     std::string doorKey_;
     SyncSemaphore doorSem_;
