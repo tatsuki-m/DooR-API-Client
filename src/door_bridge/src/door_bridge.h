@@ -35,8 +35,6 @@ private:
     void createSem();
     void getDoorKey();
 
-    void syncDpi();
-
     std::string doorKey_;
     SyncSemaphore doorSem_;
     DoorApi client_;

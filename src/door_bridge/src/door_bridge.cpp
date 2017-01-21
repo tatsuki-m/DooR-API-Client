@@ -46,24 +46,13 @@ DoorBridge::callDoorWithSem() {
 void
 DoorBridge::callDoorWithUds() {
     client_.callDoor(doorKey_, UD_SOCK);
-    std::cout << doorSem_.getValue() << std::endl;
     doorSem_.wait();
 }
 
 void
 DoorBridge::callDoorWithTcp() {
     client_.callDoor(doorKey_, TCP_SOCK);
-    syncDpi();
-}
-
-void
-DoorBridge::syncDpi() {
-    std::cout << doorSem_.getValue() << std::endl;
-    sleep(5);
-    std::cout << "DoorBridge::syncDpi()" << std::endl;
     doorSem_.wait();
-    std::cout << "DoorBridge::syncDpi()" << std::endl;
-    std::cout << "num: " << doorSem_.getValue() << std::endl;
 }
 
 //=======================
@@ -77,6 +66,7 @@ DoorBridge::getPacketDataWithSem(Dpi*& dpi) {
 
 void
 DoorBridge::getPacketDataWithUds(Dpi*& dpi) {
+    //std::cout << "DoorBridge::getPacketDataWithUds()" << std::endl;
     SocketClient socket = SocketClient(doorKey_);
     socket.run();
     socket.getDpi(dpi);
