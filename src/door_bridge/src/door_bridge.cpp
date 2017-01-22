@@ -69,6 +69,13 @@ DoorBridge::getPacketDataWithUds(Dpi*& dpi) {
     //std::cout << "DoorBridge::getPacketDataWithUds()" << std::endl;
     SocketClient socket = SocketClient(doorKey_);
     socket.run();
+    socket.handle();
     socket.getDpi(dpi);
+    socket.closeSocket();
+}
+
+std::string
+DoorBridge::shareKey() {
+    return doorKey_;
 }
 

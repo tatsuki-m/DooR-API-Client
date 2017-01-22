@@ -25,10 +25,12 @@ public:
     void callDoorWithUds();
     void callDoorWithTcp();
 
-
     // get from door
     void getPacketDataWithSem(Dpi*& dpi);
     void getPacketDataWithUds(Dpi*& dpi);
+
+    // return sharedKey for zero-copy
+    std::string shareKey();
 
 private:
     void init();
