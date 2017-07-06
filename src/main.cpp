@@ -6,7 +6,7 @@
 #include "door_unix_domain_socket_client/unix_domain_socket_client.h"
 #include "door_unix_domain_socket_client/socket_ack.h"
 
-std::string INIT_SOCKET_NAME = "/tmp/unix-socket/unix-socket";
+std::string INIT_SOCKET_NAME = "/tmp/unix-socket/init-socket";
 std::string CONTAINER_SOCKET = "/tmp/docker-unix-socket";
 
 void
@@ -29,7 +29,7 @@ main() {
     std::cout << "main:: workerSocketName: " << workerSocketName << std::endl;
 
     BridgeManager* bridgeManager = new BridgeManager(workerSocketName);
-    delete bridgeManager;
+    //delete bridgeManager;
 
     return 0;
 };
