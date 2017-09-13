@@ -18,7 +18,6 @@ void
 UnixDomainSocketStepServer::run() {
     create();
     serve();
-    closeSocket();
 }
 
 void

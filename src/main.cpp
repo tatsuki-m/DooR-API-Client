@@ -29,7 +29,7 @@ main() {
     std::cout << "main:: workerSocketName: " << workerSocketName << std::endl;
 
     BridgeManager* bridgeManager = new BridgeManager(workerSocketName);
-    //delete bridgeManager;
+    delete bridgeManager;
 
     return 0;
 };
